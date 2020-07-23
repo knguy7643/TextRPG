@@ -1,4 +1,5 @@
-import java.util.HashMap;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 public class Player {
 
@@ -18,7 +19,7 @@ public class Player {
 	private int def;
 	private int agility;
 	
-	private static HashMap<Integer, Integer> EXP_NEEDED_FOR_LVL = new HashMap<>();
+	private static NavigableMap<Integer, Integer> EXP_NEEDED_FOR_LVL = new TreeMap<>();
 	
 	static {
 		EXP_NEEDED_FOR_LVL.put(15, 2);
@@ -78,6 +79,8 @@ public class Player {
 	
 	public void levelUp() {
 		
+		this.level++;
+		
 		int[] statBonus = this.playerClass.levelUpBonus();
 		
 		this.maxHP = this.maxHP + statBonus[0] * (this.level);
@@ -100,9 +103,47 @@ public class Player {
 		return this.def;
 	}
 	
+	public int getHP() {
+		return this.currentHP;
+	}
+	
 	public void levelCheck() {
-		int temp = this.totalExp;
+		int temp = EXP_NEEDED_FOR_LVL.lowerKey(this.currExp);
 		
+		if (temp != this.level) {
+			this.levelUp();
+			
+			this.currExp = 0;
+		}
+		
+	}
+	
+	public void gainExp(int num) {
+		this.currExp = this.currExp + num;
+		
+		this.levelCheck();
+	}
+	
+	public boolean isEmpty() {
+		for (int idx = 0; idx < abilities.length; idx++) {
+			if (abilities[idx] == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void learnAbility(Ability ability) {
+		if (this.isEmpty()) {
+			for (int idx = 0; idx < abilities.length; idx++) {
+				if (abilities[idx] == null) {
+					abilities[idx] = ability;
+				}
+			}
+		}
+		else {
+			//Repleace an ability
+		}
 		
 	}
 	
