@@ -20,12 +20,19 @@ public class Player {
 	private int agility;
 	
 	private static NavigableMap<Integer, Integer> EXP_NEEDED_FOR_LVL = new TreeMap<>();
+	private static NavigableMap<Integer, Integer> LVL_TO_EXP = new TreeMap<>();
 	
 	static {
 		EXP_NEEDED_FOR_LVL.put(15, 2);
 		for (int lvl = 3; lvl < 50; lvl++) {
 			int exp = 15;
 			EXP_NEEDED_FOR_LVL.put((lvl) * exp, lvl);
+		}
+		
+		LVL_TO_EXP.put(2,15);
+		for (int lvl = 3; lvl < 50; lvl++) {
+			int exp = 15;
+			LVL_TO_EXP.put(lvl, (lvl) * exp);
 		}
 	}
 	
@@ -58,6 +65,10 @@ public class Player {
 		
 		setMana();
 		
+	}
+	
+	public String getName() {
+		return playerName;
 	}
 	
 	public int getLvl() {
@@ -116,6 +127,12 @@ public class Player {
 			this.currExp = 0;
 		}
 		
+	}
+	
+	public int expNeeded() {
+		int temp = LVL_TO_EXP.get(this.level + 1) - this.currExp;
+		
+		return temp;
 	}
 	
 	public void gainExp(int num) {
