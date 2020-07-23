@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,11 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 public class Driver {
 	
 	private static String playerName;
 	private static Class playerClass;
+	private static Player player;
 
 	public static void main(String[] args) {
 	
@@ -35,6 +38,8 @@ public class Driver {
 		JScrollPane vertical = new JScrollPane(system);
 		vertical.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		system.setCaretPosition(system.getDocument().getLength());
+		DefaultCaret caret = (DefaultCaret) system.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.OUT_BOTTOM);
 		
 		//Select New File or Saved File
 		JPanel fileChoice = new JPanel();
@@ -84,6 +89,45 @@ public class Driver {
 		chooseClassPanel.add(chooseClassLabel);
 		chooseClassPanel.add(classOptions);
 		chooseClassPanel.add(selectClassButton);
+		
+		selectClassButton.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (classOptions.getSelectedItem() == "Fighter") {
+					playerClass = Class.Fighter;
+				}
+				else if (classOptions.getSelectedItem() == "Braver") {
+					playerClass = Class.Braver;
+				}
+				else if (classOptions.getSelectedItem() == "Swordsman") {
+					playerClass = Class.Swordsman;
+				}
+				else if (classOptions.getSelectedItem() == "Force") {
+					playerClass = Class.Force;
+				}
+				else {
+					playerClass = Class.Assassin;
+				}
+				
+				//Create the player object.
+				player = new Player(playerName, playerClass);
+				
+			}
+		}));
+		
+		//Panel to display player stats.
+		JPanel playerStats = new JPanel();
+		JLabel playerNameLabel = new JLabel("Player Name: " + player.getName());
+		JLabel playerLvlLabel = new JLabel("Player Level: " + player.getLvl());
+		JLabel playerExp = new JLabel("EXP Needed to Level: " + player.expNeeded());
+		
+		
+		
+		//Add components to frame
+		frame.add(BorderLayout.CENTER, vertical);
+		frame.add(BorderLayout.SOUTH, fileChoice);
+		
+		//Set frame visible
+		frame.setVisible(true);
 		
 	}
 	
