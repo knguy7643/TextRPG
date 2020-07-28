@@ -110,12 +110,20 @@ public class Player {
 		return this.atk;
 	}
 	
+	public int getMana() {
+		return this.manaPool;
+	}
+	
 	public int getDefense() {
 		return this.def;
 	}
 	
 	public int getHP() {
 		return this.currentHP;
+	}
+	
+	public int getMaxHP() {
+		return this.maxHP;
 	}
 	
 	public void levelCheck() {

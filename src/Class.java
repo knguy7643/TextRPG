@@ -1,7 +1,7 @@
 
 public enum Class {
 
-	Fighter, Braver, Swordsman, Force, Assassin;
+	Fighter, Braver, Swordsman, Force, Assassin, None;
 	
 	/*
 	 * Force - Starts all fights with an extra mana.
@@ -29,8 +29,12 @@ public enum Class {
 			int[] arr= {35, 35, 35, 35};
 			return arr;
 		}
-		else { // Assassin Class
+		else if (this == Class.Assassin) { 
 			int[] arr= {25, 51, 22, 42};
+			return arr;
+		}
+		else {
+			int[] arr = {10, 10, 10, 10};
 			return arr;
 		}
 		
@@ -57,6 +61,10 @@ public enum Class {
 			int[] arr= {2, 6, 2, 5};
 			return arr;
 		}
+	}
+	
+	public String toString() {
+		return this.name();
 	}
 	
 }
