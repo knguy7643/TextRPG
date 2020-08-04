@@ -31,10 +31,16 @@ public class PlayerMovement : MonoBehaviour
     //This field will store the speed of player movement.
     public float walkingSpeed = 3f;
 
+    public bool isAbleToMove = true;
+
+    void start() {
+        isAbleToMove = true;
+	}
+
     // Update is called once per frame
     void Update()
     {
-        if (!isMoving) { //Checks if user is already moving.
+        if (!isMoving && isAbleToMove) { //Checks if user is already moving.
             input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));  
 
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y)) {
