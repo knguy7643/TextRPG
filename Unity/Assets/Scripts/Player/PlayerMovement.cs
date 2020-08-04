@@ -4,24 +4,37 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //This field stores the direction the player sprite is facing.
     Direction directionFacing;
-    Vector2 input;
-    bool isMoving = false;
-    Vector3 startingPosition;
-    Vector3 endingPosition;
-    float time;
 
+    //This field will store the user's WASD inputs. 
+    Vector2 input;
+
+    //This field stores if the player is currently in motion.
+    bool isMoving = false;
+
+    //This field will store the player's positon before moving.
+    Vector3 startingPosition;
+
+    //This field will store the player's ending position.
+    Vector3 endingPosition;
+
+    //This field will store time as a float value.
+    float time;
+    
+    //These fields store the player's sprite for as they move.
     public Sprite northSprite;
     public Sprite eastSprite;
     public Sprite southSprite;
     public Sprite westSprite;
 
+    //This field will store the speed of player movement.
     public float walkingSpeed = 3f;
 
     // Update is called once per frame
     void Update()
     {
-        if (!isMoving) {
+        if (!isMoving) { //Checks if user is already moving.
             input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));  
 
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y)) {

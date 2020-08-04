@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class Grass_Tall : MonoBehaviour
 {
+    //This field stores the type of tile the Grass_Tall is on.
     public RegionList region;
 
+    //This field stores the game manager object.
     private Manager manager;
+
     // Start is called before the first frame update
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
@@ -39,27 +36,27 @@ public class Grass_Tall : MonoBehaviour
 
             float random = Random.Range(0.0f, 100.0f);
 
-            if (random < l * 100) {
+            if (random < l * 100) { //Spawns a Legendary
                 if (manager != null) {
                     manager.EnterBattle(Rarity.Legendary);        
 				}
 			}
-            else if (random < e * 100) {
+            else if (random < e * 100) { //Spawns an Epic
                 if (manager != null) {
                     manager.EnterBattle(Rarity.Epic);        
 				}
 			}
-            else if (random < r * 100) {
+            else if (random < r * 100) { //Spawns a Rare
                 if (manager != null) {
                     manager.EnterBattle(Rarity.Rare);        
 				}
 			}
-            else if (random < uc * 100) {
+            else if (random < uc * 100) { //Spawns an Uncommon
                 if (manager != null) {
                     manager.EnterBattle(Rarity.Uncommon);        
 				}
 			}
-            else if (random < c * 100) {
+            else if (random < c * 100) { //Spawns a Common
                 if (manager != null) {
                     manager.EnterBattle(Rarity.Common);        
 				}

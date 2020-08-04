@@ -17,6 +17,7 @@ public class Region : MonoBehaviour
     }
 }
 
+//This enum will help determine what monster spawns where.
 public enum RegionList
 { 
     Grass,
