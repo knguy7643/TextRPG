@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseMonster : MonoBehaviour
 {
     //This field will store the monsters name.
-    public string name;
+    public string Mname;
 
     //This field will store the monster's spirte image.
     public Sprite image;
@@ -15,6 +15,7 @@ public class BaseMonster : MonoBehaviour
 
     //This field will store the monsters rarity.
     public Rarity rarity;
+    private Rarity storedRarity;
 
     //These fields will store the monsters stats.
     private int currentHP;
@@ -22,12 +23,18 @@ public class BaseMonster : MonoBehaviour
     private int attackStat;
     private int defenseStat;
     private int agilityStat;
-    public int level;
+    private int level;
     private int expReward;
+
+    public GameObject player;
+
+    public List<Ability> abilities = new List<Ability>();
 
     // Start is called before the first frame update
     void Start()
     {
+        storedRarity = rarity;
+        level = 3;
         if (rarity == Rarity.Legendary) {
             maxHP = level * 8;
             currentHP = maxHP;
@@ -67,8 +74,50 @@ public class BaseMonster : MonoBehaviour
         
     }
 
+    public void AddMember(BaseMonster bm) {
+        this.Mname = bm.Mname;
+        this.image = bm.image;
+        this.rarity = bm.rarity;
+        this.regionLocation = bm.regionLocation;
+        this.abilities = bm.abilities;
+        this.currentHP = bm.currentHP;
+        this.maxHP = bm.maxHP;
+        this.attackStat = bm.attackStat;
+        this.defenseStat = bm.defenseStat;
+        this.agilityStat = bm.agilityStat;
+        this.level = bm.level;
+        this.expReward = bm.expReward;
+	}
+
     public Rarity GetRarity() {
-     return rarity;
+     return storedRarity;
+	}
+    public int GetCurrentHP() {
+     return currentHP;
+	}
+    public int GetMaxHP() {
+     return maxHP;
+	}
+    public int GetAttackStat() {
+     return attackStat;
+	}
+    public int GetDefenseStat() {
+     return defenseStat;
+	}
+    public int GetAgilityStat() {
+     return agilityStat;
+	}
+    public int GetLevel() {
+     return level;
+	}
+    public int GetExp() {
+     return expReward;
+	}
+    public string GetName() {
+     return Mname;
+	}
+    public Sprite GetImage() {
+     return image;
 	}
 }
 

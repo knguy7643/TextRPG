@@ -7,12 +7,13 @@ public class Manager : MonoBehaviour
     public GameObject playerCamera;
     public GameObject battleCamera;
 
+    public BaseMonster transferMonster;
+
     public GameObject player;
 
     public List<BaseMonster> allMonsters = new List<BaseMonster>();
 
-    public Transform defenderPod;
-    public Transform attackerPod;
+    public BattleManager bm;
 
     // Start is called before the first frame update
     void Start()
@@ -21,24 +22,19 @@ public class Manager : MonoBehaviour
         battleCamera.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void EnterBattle(Rarity rarity) 
     {
+        //Changes camera scene
         playerCamera.SetActive(false);
         battleCamera.SetActive(true);
 
+        //Stops player from moving on map during battle.
+        player.GetComponent<PlayerMovement>().isAbleToMove = false;
+
         BaseMonster battleMonster = GetRandomMonsterFromList(GetMonsterByRarity(rarity));
 
-        //Debug.Log(battleMonster.name);
+        bm.ChangeMenu(BattleMenu.Selection, battleMonster);
 
-
-
-        player.GetComponent<PlayerMovement>().isAbleToMove = false;
 	}
 
     //Returns a list of possible monster based on its rarity.
@@ -64,6 +60,8 @@ public class Manager : MonoBehaviour
         int index = Random.Range(0, monsterList.Count - 1);
 
         monster = monsterList[index];
+
+        transferMonster = monster;
 
         return monster;
 	}

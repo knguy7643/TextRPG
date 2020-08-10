@@ -6,7 +6,7 @@ public class Ability : MonoBehaviour
 {
     public string abilityName;
     public int manaCost;
-    public int damageModifier;
+    public float damageModifier;
 
     // Start is called before the first frame update
     void Start()
@@ -19,4 +19,14 @@ public class Ability : MonoBehaviour
     {
         
     }
+
+    public Ability(string name, int mana, float dmg) {
+        abilityName = name;
+        manaCost = mana;
+        damageModifier = dmg;
+	}
+
+    public string GetName() {
+        return abilityName;
+	}
 }
