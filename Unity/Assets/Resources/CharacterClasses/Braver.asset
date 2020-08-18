@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fda1841af254541aa96ebe3554cdea, type: 3}
+  m_Name: Braver
+  m_EditorClassIdentifier: 
+  playerClass: 2
+  description: 
+  battleSprite: {fileID: 0}
+  attackStat: 130
+  defenseStat: 60
+  agilityStat: 95
+  maxHP: 90
+  startMana: 0
+  learnablePlayerMoves:
+  - moveBase: {fileID: 11400000, guid: 1f335f3797f74b047a6e8dde2d969803, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 0ad274f94d474e64395666daabe229d4, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 11f3ab5dad592be4d8701b9c486130e4, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: 3e6f71fe23a483c46a505f749ce64de0, type: 2}
+    level: 7

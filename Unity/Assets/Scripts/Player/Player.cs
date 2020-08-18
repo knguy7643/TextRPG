@@ -1,116 +1,89 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
 
-public class Player : MonoBehaviour
+public class Player 
 {
-    public string playerName;
-    public CharacterClass characterClass;
-    public int level;
-    private int mana;
+    public BasePlayer Base {get; set;}
+    public int Level {get; set;}
 
-    //These field stores player stats.
-    private int maxHP;
-    private int currentHP;
-    private int attackStat;
-    private int defenseStat;
-    private int agilityStat;
-    private int totalExp;
+    public int CurrentHP {get; set;}
 
-    private List<Ability> abilities;
+    public int Mana {get; set;}
 
-    public Sprite image;
+    public List<Move> Moves {get; set;}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        level = 1;
-        mana = 0;
-        abilities = new List<Ability>(4);
-        abilities.Add(new Ability("Basic Attack", 0, 0.0f));
-        if (characterClass == CharacterClass.Braver) {
-            abilities.Add(new Ability("Gale Punch", 0, 0.0f));
-            abilities.Add(new Ability("Phoenix Fist", 0, 0.0f));
-            abilities.Add(new Ability("Nemesis Jet Striker", 0, 1f));
-		}
-        if (characterClass == CharacterClass.Knight) {
-            abilities.Add(new Ability("Light Phalanx", 0, 0.0f));
-            abilities.Add(new Ability("Halberd Ray", 0, 0.0f));
-            abilities.Add(new Ability("Seraphic Wing Dive Strike", 0, 1f));
-		}
-        if (characterClass == CharacterClass.Assassin) {
-            abilities.Add(new Ability("Phantom Dive", 0, 0.0f));
-            abilities.Add(new Ability("Backstab", 0, 0.0f));
-            abilities.Add(new Ability("Phantom Blade Void Fang Slash", 0, 1f));
-		}
-        if (characterClass == CharacterClass.Force) {
-            mana = 1;
-            abilities.Add(new Ability("Ice Bolt", 0, 0));
-            abilities.Add(new Ability("World's End", 0, 0));
-            abilities.Add(new Ability("Meteor Prominence Breaker", 0, 1f));
-		}
-        if (characterClass == CharacterClass.Bladedancer) {
-            abilities.Add(new Ability("Sword Bit", 0, 0.0f));
-            abilities.Add(new Ability("last Breath", 0, 0.0f));
-            abilities.Add(new Ability("Ikaros Force Zero 00-Sword", 0, 1f));
-		}
-    }
+    public Player(BasePlayer _Base, int level) {
+        Base = _Base;
+        Level = level;
+        Mana = Base.StartMana;
+        CurrentHP = MaxHP;
 
-    public string GetAbilityName(int num) {
-        return abilities[num].GetName();
+         Moves = new List<Move>();
+
+        foreach (var more in Base.LearnablePlayerMoves) {
+            if (more.LevelLearned <= Level) {
+                Moves.Add(new Move(more.Base));     
+			}
+            
+            if (Moves.Count >= 4) {
+                break;     
+			}
+		}
+
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int AttackStat {
+        get {return Mathf.FloorToInt((Base.AttackStat * Level) / 100f) + 5;}
+	}
 
-    public void ResetMana() {
-        if (characterClass == CharacterClass.Force) {
-            mana = 1;
+    public int DefenseStat {
+        get {return Mathf.FloorToInt((Base.DefenseStat * Level) / 100f) + 5;}
+	}
+
+    public int AgilityStat {
+        get {return Mathf.FloorToInt((Base.AgilityStat * Level) / 100f) + 5;}
+	}
+
+    public int MaxHP {
+        get {return Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10;}
+	}
+
+    public bool TakeDamage(Move move, Monster attacker) {
+
+        float critialHit = 1f;
+
+        if (Random.value * 100f <= 6.25f) {
+            critialHit = 2f;
+        }
+
+        float modifiers = Random.Range(0.85f, 1f) * critialHit;
+        float a = (2 * attacker.level + 10) / 250f;
+        float d = a * move._base.Power * ((float) attacker.AttackStat / DefenseStat) + 2;
+
+        int damage = Mathf.FloorToInt(d * modifiers);
+
+        attacker.GainMana(1);
+
+        CurrentHP = CurrentHP - damage;
+
+        if (CurrentHP <= 0) {
+            CurrentHP = 0;
+            return true;
         }
         else {
-            mana = 0;  
-		}
-	}
+            return false;
+        }
+    }
 
-    public int GetLevel() {
-        return level;
-	}
+    public void GainMana(int numManaGained) {
+        Mana = Mana + numManaGained;
+    }
 
-    public int GetMana() {
-        return mana;
-	}
-
-    public int GetCurrentHP() {
-        return currentHP;
-	}
-
-    public int GetMaxHP() {
-        return maxHP;
-	}
-
-    public int GetAttackStat() {
-        return attackStat;
-	}
-
-    public int GetDefenseStat() {
-        return defenseStat;
-	}
-
-    public int GetAgilityStat() {
-        return agilityStat;
-	}
-
-}
-
-public enum CharacterClass 
-{
-    Braver,
-    Knight,
-    Assassin,
-    Force,
-    Bladedancer,
+    public void LoseMana(int numManaLost) {
+        Mana = Mana - numManaLost;
+        if (Mana < 0) {
+            Mana = 0;
+        }
+    }
 }

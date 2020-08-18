@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b619183f2e5a4cb1954204cd5c878, type: 3}
+  m_Name: Shrek
+  m_EditorClassIdentifier: 
+  baseMonsterName: Swamp Lord Shrek
+  description: 
+  baseMonsterSprite: {fileID: 21300000, guid: 84543cc5d5ea70c4eb4e63c8c332f5f1, type: 3}
+  monsterRarity: 4
+  attackStat: 100
+  defenseStat: 100
+  agilityStat: 100
+  maxHP: 100
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 1f335f3797f74b047a6e8dde2d969803, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 3ce081ddce7d21e4e93e8c3e57131151, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 7ab77067e00b9d648a6e0548630ccc16, type: 2}
+    level: 5
+  - moveBase: {fileID: 11400000, guid: 79a397810392e0648b8380f181a72c25, type: 2}
+    level: 7
