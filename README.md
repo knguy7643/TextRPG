@@ -11,9 +11,8 @@ RPG using JavaFx. At first, I thought the idea of Unity Game Engine to design a 
 more that I could do for a 2D game using Unity than just JavaFx. In this github will be the assets and scripts that I have for my game in 
 Unity so far. Unity also provided me with the opportunity to learn C#.
 
+I decided to re-build my attemp on Unity from the ground up using new practices that allowed me to implement unit collision and scriptable objects.
+
 ### Notes for Self
-- Using tiles and sprites from Nintendo
-- TODO: Battling GUI
-- TODO: Spirtes for monsters
 - TODO: More expansive map design
 - TODO: Add story cutscene transitions
